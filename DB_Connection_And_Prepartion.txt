@@ -1,0 +1,98 @@
+EC2
+
+ssh -i "aalokapp.pem" ec2-user@ec2-52-66-195-46.ap-south-1.compute.amazonaws.com
+
+RDS :
+
+RDS_DB_NAME 	:	prod
+RDS_USERNAME 	:	ambasa
+RDS_PASSWORD 	: 	ambasa123
+RDS_HOSTNAME 	: 	wpmysql.ccd98wfr4h7w.ap-south-1.rds.amazonaws.com
+RDS_PORT     	: 	3306
+
+mysql -u ambasa -pambasa123 -h wpmysql.ccd98wfr4h7w.ap-south-1.rds.amazonaws.com -P 3306
+
+MySQL [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| ebdb               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+MySQL [(none)]> create database prod;
+Query OK, 1 row affected (0.11 sec)
+
+MySQL [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| ebdb               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| prod               |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+MySQL [(none)]> use prod;
+Database changed
+MySQL [prod]> show tables;
+Empty set (0.00 sec)
+
+MySQL [prod]>
+
+
+MySQL [prod]> CREATE TABLE IF NOT EXISTS urler(id INT UNSIGNED NOT NULL AUTO_INCREMENT,author VARCHAR(63) NOT NULL, message TEXT, PRIMARY KEY (id));
+Query OK, 0 rows affected (0.07 sec)
+
+MySQL [prod]>
+
+MySQL [prod]> show tables;
++----------------+
+| Tables_in_prod |
++----------------+
+| urler          |
++----------------+
+1 row in set (0.00 sec)
+
+MySQL [prod]> select * from urler;
+Empty set (0.00 sec)
+
+MySQL [prod]>
+
+
+MySQL [prod]> SELECT user FROM mysql.user GROUP BY user;
++------------------+
+| user             |
++------------------+
+| ambasa           |
+| mysql.infoschema |
+| mysql.session    |
+| mysql.sys        |
+| rdsadmin         |
++------------------+
+5 rows in set (0.00 sec)
+
+MySQL [prod]>
+
+
+DELETE FROM mysql.user WHERE user = 'username';
+
+
+
+
+MySQL [prod]> delete from urler;
+Query OK, 1 row affected (0.07 sec)
+
+MySQL [prod]> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+MySQL [prod]> select * from urler;
+Empty set (0.00 sec)
+
